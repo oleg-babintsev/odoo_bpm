@@ -11,7 +11,7 @@
 				<xpath expr="//field[@name='memo']" position="before">
 					<group>
 						<field name="name" required="1" class="oe_inline"
-							string="Nome" />
+							string="Name" />
 						
 					</group>
 				</xpath>
