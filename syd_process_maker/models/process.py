@@ -300,10 +300,13 @@ class ProcessGroup(BPMInterface,models.Model):
                 for activity in starting_activities :
                     act = self.env['syd_bpm.activity'].search([('pm_activity_id','=',activity['act_uid'])],limit=1)
                     act.is_start_activity = True
-                    acts = self.env['syd_bpm.activity'].search([('process_id','=',process_id.id),('is_start_activity','=',True)])
-                    if (not starting_activities ) :
-                        process.startable = False
-                        acts.is_start_activity = False
+                    # acts = self.env['syd_bpm.activity'].search([('process_id','=',process_id.id),('is_start_activity','=',True)])
+                    # if (not starting_activities ) :
+                    #     process.startable = False
+                    #     acts.is_start_activity = False
+                starting_activities_count = self.env['syd_bpm.activity'].search_count(
+                    [('process_id', '=', process_id.id), ('is_start_activity', '=', True)])
+                process_id.startable = starting_activities_count > 0
             pgroup.last_update = fields.Datetime.now()
             return True
     
