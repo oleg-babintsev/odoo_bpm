@@ -28,7 +28,7 @@ class ProcessGroup(BPMInterface,models.Model):
     pm_username = fields.Char(string='PM Username',required=True)
     pm_password = fields.Char(string='PM Password',required=True)
     
-    pm_user_name = fields.Char(string='Nome of the user of PM',required=True)
+    pm_user_name = fields.Char(string='Name of the user of PM',required=True)
     
     
     def _call(self,request,jsonobject=dict(),method='GET'):
