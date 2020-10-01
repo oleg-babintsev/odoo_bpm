@@ -40,9 +40,21 @@ class WizardConfigLine(models.Model):
     options = fields.Char('Options')
 
 
-    
-    
-        
+class BaseWizardModel(models.BaseModel):
+    _name = 'base'
+
+    @api.model
+    def confirm_wizard(self, vals):
+        if 'syd_dynamic_wizard' in self.env.context:
+            a = self.env[self._name].browse(vals)
+            model = self.env.context['model']
+            res_id = self.env.context['res_id']
+            object = self.env[model].browse(res_id)
+            callback = self.env.context['callback']
+            getattr(object, callback)(a)
+            return a
+
+
 class WizardConfig(models.Model):
     _name = 'syd_dynamic_wizard.wizard.config'
     _description=' Wizard Config'
